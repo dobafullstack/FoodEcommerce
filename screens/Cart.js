@@ -26,43 +26,55 @@ export default function Cart({ navigation }) {
         setProducts(cart.products);
     }, [cart, cart.products]);
     return (
-        <ScrollView style={{ paddingBottom: 16 }}>
-            <View>
-                <SwipeListView
-                    data={products}
-                    renderItem={({ item }) => (
-                        <View style={styles.wrapper}>
-                            <CartItem
-                                image={item.product.image}
-                                name={item.product.name}
-                                price={item.product.price}
-                                count={item.count}
-                                item={item}
-                            />
-                        </View>
-                    )}
-                    renderHiddenItem={(data, rowMap) => (
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={() => handleRemoveCart(data)}>
-                            <View style={styles.rowBack}>
-                                <Text style={{ color: "white" }}>Delete</Text>
-                            </View>
-                        </TouchableOpacity>
-                    )}
-                    rightOpenValue={-75}
-                    disableRightSwipe={true}
-                    keyExtractor={(item, index) => `${item.product._id}`}
-                />
-                <Text style={styles.price}>
-                    Tổng cộng:{" "}
-                    {cart.totalPrice.toLocaleString("vi", {
-                        style: "currency",
-                        currency: "VND",
-                    })}
-                </Text>
-            </View>
-        </ScrollView>
+        <View>
+            {products.length === 0 ? (
+                <View style={{height: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={{fontSize: 20, opacity: 0.6, color: '#121212'}}>Bạn chưa thêm gì trong giỏ hàng</Text>
+                </View>
+            ) : (
+                <ScrollView style={{ paddingBottom: 16 }}>
+                    <View>
+                        <SwipeListView
+                            data={products}
+                            renderItem={({ item }) => (
+                                <View style={styles.wrapper}>
+                                    <CartItem
+                                        image={item.product.image}
+                                        name={item.product.name}
+                                        price={item.product.price}
+                                        count={item.count}
+                                        item={item}
+                                    />
+                                </View>
+                            )}
+                            renderHiddenItem={(data, rowMap) => (
+                                <TouchableOpacity
+                                    activeOpacity={0.8}
+                                    onPress={() => handleRemoveCart(data)}>
+                                    <View style={styles.rowBack}>
+                                        <Text style={{ color: "white" }}>
+                                            Delete
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )}
+                            rightOpenValue={-75}
+                            disableRightSwipe={true}
+                            keyExtractor={(item, index) =>
+                                `${item.product._id}`
+                            }
+                        />
+                        <Text style={styles.price}>
+                            Tổng cộng:{" "}
+                            {cart.totalPrice.toLocaleString("vi", {
+                                style: "currency",
+                                currency: "VND",
+                            })}
+                        </Text>
+                    </View>
+                </ScrollView>
+            )}
+        </View>
     );
 }
 

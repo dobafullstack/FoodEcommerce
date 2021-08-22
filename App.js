@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         textTransform: "capitalize",
         fontWeight: "bold",
         color: "#fff",
-        fontSize: 16
+        fontSize: 16,
     },
 });
 

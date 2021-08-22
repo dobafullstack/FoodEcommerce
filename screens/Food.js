@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/actions/cart.action";
 
@@ -8,8 +8,8 @@ export default function Food({ route }) {
     const dispatch = useDispatch();
 
     const handleAddToCart = (product) => {
-        dispatch(addToCart(product))
-    }
+        dispatch(addToCart(product));
+    };
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={{ uri: food.image }} />
@@ -22,13 +22,12 @@ export default function Food({ route }) {
                         currency: "VND",
                     })}
                 </Text>
-                <View style={styles.button}>
-                    <Button
-                        title='Add to cart'
-                        color='white'
-                        onPress={() => handleAddToCart(food)}
-                    />
-                </View>
+                <TouchableOpacity
+                activeOpacity={0.7}
+                    style={styles.button}
+                    onPress={() => handleAddToCart(food)}>
+                    <Text style={styles.textCart}>Add to cart</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -62,6 +61,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: "red",
         flexGrow: 1,
+        paddingVertical: 10
     },
     price: {
         flexGrow: 1,
@@ -69,4 +69,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 20,
     },
+    textCart: {
+        color: "white",
+        textAlign: "center",
+    }
 });

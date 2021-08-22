@@ -54,30 +54,31 @@ export const removeCart = (product) => async (dispatch, getState) => {
     let totalPrice = getState().cart.totalPrice;
 
     totalPrice = totalPrice - product.product.price * product.count;
-    products = products.filter((item) => item.product._id !== product.product._id);
+    products = products.filter(
+        (item) => item.product._id !== product.product._id
+    );
 
     dispatch({
         type: actionTypes.REMOVE_CART,
         payload: {
             products: products,
-            totalPrice: totalPrice
-        }
-    })
+            totalPrice: totalPrice,
+        },
+    });
 };
 
 export const updateCart = (product, count) => async (dispatch, getState) => {
     let products = getState().cart.products;
     let totalPrice = getState().cart.totalPrice;
 
-    const index = products.findIndex(item => item.product._id === product.product._id);
+    const index = products.findIndex(
+        (item) => item.product._id === product.product._id
+    );
 
-    console.log(count)
-    if (count > 0){
-        console.log("Increase")
+    if (count > 0) {
         products[index].count += count;
-        totalPrice = totalPrice + product.product.price
-    }else{
-        console.log("Decrease");
+        totalPrice = totalPrice + product.product.price;
+    } else {
         if (product.count === 1) {
             return;
         }
@@ -91,6 +92,6 @@ export const updateCart = (product, count) => async (dispatch, getState) => {
         payload: {
             products: products,
             totalPrice: totalPrice,
-        }
-    })
+        },
+    });
 };
