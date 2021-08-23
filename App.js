@@ -71,7 +71,7 @@ export default function App() {
                                     ? "home-outline"
                                     : "home-outline";
                             } else if (route.name === "Profile") {
-                                iconName = focused ? "ios-list" : "ios-list";
+                                iconName = focused ? "person-outline" : "person-outline";
                             } else if (route.name === "Cart") {
                                 iconName = focused
                                     ? "cart-outline"

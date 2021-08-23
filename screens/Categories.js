@@ -8,12 +8,10 @@ import { getCategories } from "../redux/actions/category.action";
 export default function Categories(props) {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.category);
-    
+
     useEffect(() => {
         dispatch(getCategories());
     }, [dispatch]);
-
-    console.log(categories);
     return (
         <View style={styles.container}>
             {categories.isLoading ? (

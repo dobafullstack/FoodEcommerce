@@ -1,7 +1,7 @@
 import * as actionTypes from "../constants/category.constant";
 import axios from "axios";
 
-export const getCategories = (payload) => async (dispatch, getState) => {
+export const getCategories = () => async (dispatch, getState) => {
     try {
         const { data } = await axios.get("/categories");
 
