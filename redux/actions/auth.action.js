@@ -1,12 +1,14 @@
 import * as actionTypes from "../constants/auth.constant";
+import axios from 'axios'
 
-export const login = (username, password) => (dispatch, getState) => {
+export const login = (username, password) => async (dispatch, getState) => {
     try {
-        const { data } = await axios.get(`/auth/login`, {
+        const { data } = await axios.post(`/auth/login`, {
             username: username,
             password: password,
-            name: name,
         });
+
+        console.log(data)
 
         dispatch({
             type: actionTypes.LOGIN_REQUIRED,
@@ -22,6 +24,7 @@ export const login = (username, password) => (dispatch, getState) => {
             });
         }, 1500);
     } catch (error) {
+        console.log(error)
         dispatch({
             type: actionTypes.LOGIN_FAILURE,
             payload: {
@@ -34,7 +37,7 @@ export const login = (username, password) => (dispatch, getState) => {
 export const register =
     (username, password, name) => async (dispatch, getState) => {
         try {
-            const { data } = await axios.get(`/auth/register`, {
+            const { data } = await axios.post(`/auth/register`, {
                 username: username,
                 password: password,
                 name: name,

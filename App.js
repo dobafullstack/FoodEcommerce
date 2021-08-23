@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {PersistGate} from 'redux-persist/integration/react'
 
 import Categories from "./screens/Categories";
 import Category from "./screens/Category";
@@ -13,11 +14,11 @@ import Profile from "./screens/Profile";
 
 import axios from "axios";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import store, {persistor} from "./redux/store";
 import Cart from "./screens/Cart";
 
 axios.defaults.baseURL = "https://food-eccomerce.herokuapp.com/";
-axios.defaults.headers.post["Content-Type"] =
+axios.defaults.headers["Content-Type"] =
     "application/x-www-form-urlencoded";
 
 const CategoriesStack = createNativeStackNavigator();
@@ -59,6 +60,7 @@ function CategoriesStackScreen() {
 export default function App() {
     return (
         <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
             <NavigationContainer
                 screenOptions={{ headerStyle: { backgroundColor: "#f4511e" } }}>
                 <Tab.Navigator
@@ -134,6 +136,7 @@ export default function App() {
                     />
                 </Tab.Navigator>
             </NavigationContainer>
+            </PersistGate>
         </Provider>
     );
 }

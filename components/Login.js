@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     StyleSheet,
     Text,
@@ -11,16 +11,26 @@ import {
 
 import Facebook from '../assets/facebook.png';
 import Google from '../assets/google.png';
+import {useDispatch} from 'react-redux'
+import {login} from '../redux/actions/auth.action'
 
 export default function Login() {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
+
+    const handleLogin = () => {
+        dispatch(login(username, password))
+    }
+    
     return (
         <View style={styles.container}>
             <View style={styles.wrapper}>
                 <Text style={styles.textLogin}>Login</Text>
 
-                <TextInput style={styles.input} placeholder='Username' />
-                <TextInput style={styles.input} placeholder='Password' />
-                <TouchableOpacity style={styles.btnLogin} activeOpacity={0.8}>
+                <TextInput style={styles.input} placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}/>
+                <TextInput style={styles.input} secureTextEntry={true} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <TouchableOpacity style={styles.btnLogin} activeOpacity={0.8} onPress={() => handleLogin()}>
                     <Text
                         style={{
                             color: "white",
