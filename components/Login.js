@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -6,31 +6,50 @@ import {
     TextInput,
     TouchableOpacity,
     Button,
-    Image
+    Image,
+    ActivityIndicator,
 } from "react-native";
 
-import Facebook from '../assets/facebook.png';
-import Google from '../assets/google.png';
-import {useDispatch} from 'react-redux'
-import {login} from '../redux/actions/auth.action'
+import Facebook from "../assets/facebook.png";
+import Google from "../assets/google.png";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/actions/auth.action";
 
 export default function Login() {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const dispatch = useDispatch()
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+    const isLoading = useSelector((state) => state.auth.isLoading);
 
     const handleLogin = () => {
-        dispatch(login(username, password))
-    }
-    
+        dispatch(login(username, password));
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.wrapper}>
                 <Text style={styles.textLogin}>Login</Text>
 
-                <TextInput style={styles.input} placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}/>
-                <TextInput style={styles.input} secureTextEntry={true} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}/>
-                <TouchableOpacity style={styles.btnLogin} activeOpacity={0.8} onPress={() => handleLogin()}>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Username'
+                    defaultValue={username}
+                    onChangeText={(text) => setUsername(text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    secureTextEntry={true}
+                    placeholder='Password'
+                    defaultValue={password}
+                    onChangeText={(text) => setPassword(text)}
+                />
+                {isLoading ? (
+                    <ActivityIndicator size='large' color='#f4511e' />
+                ) : null}
+                <TouchableOpacity
+                    style={styles.btnLogin}
+                    activeOpacity={0.8}
+                    onPress={() => handleLogin()}>
                     <Text
                         style={{
                             color: "white",
@@ -111,11 +130,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginTop: 30,
         width: "40%",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
     },
     socialIcon: {
         width: 50,
         height: 50,
-        borderRadius: 50
-    }
+        borderRadius: 50,
+    },
 });

@@ -5,7 +5,7 @@ const initialState = {
     user: {},
     message: "",
     isLoading: false,
-    accessToken: ""
+    accessToken: "",
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -25,29 +25,39 @@ export default (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 isLoading: false,
-                message: payload.message
+                message: payload.message,
             };
 
         case actionTypes.LOGIN_REQUIRED:
             return {
                 ...state,
                 isLoading: true,
-                message: ""
+                message: "",
             };
         case actionTypes.LOGIN_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                user: payload.user,
-                accessToken: payload.accessToken
+                accessToken: payload.accessToken,
+                isLogin: true
             };
         case actionTypes.LOGIN_FAILURE:
             return {
                 ...state,
                 isLoading: false,
-                message: payload.message
+                message: payload.message,
             };
-
+        case actionTypes.LOGOUT:
+            return {
+                ...state,
+                isLogin: false,
+                user: {},
+            };
+        case actionTypes.VERIFY_TOKEN:
+            return {
+                ...state,
+                user: payload.user
+            }
         default:
             return state;
     }

@@ -18,7 +18,7 @@ import store, {persistor} from "./redux/store";
 import Cart from "./screens/Cart";
 
 axios.defaults.baseURL = "https://food-eccomerce.herokuapp.com/";
-axios.defaults.headers["Content-Type"] =
+axios.defaults.headers.post["Content-Type"] =
     "application/x-www-form-urlencoded";
 
 const CategoriesStack = createNativeStackNavigator();

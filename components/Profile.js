@@ -10,8 +10,17 @@ import {
 } from "react-native";
 import Avatar from "../assets/avatar.jpg";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { logout } from "../redux/actions/auth.action";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Profile() {
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.user);
+
+    const handleLogout = () => {
+        dispatch(logout());
+    };
+
     return (
         <View style={{ height: "100%", position: "relative" }}>
             <View style={styles.header}></View>
@@ -32,8 +41,10 @@ export default function Profile() {
                                 color='rgba(0, 0, 0, 0.7)'
                             />
                         </TouchableOpacity>
-                        <Text style={styles.name}>Duy Anh</Text>
-                        <TouchableOpacity style={styles.btn}>
+                        <Text style={styles.name}>{user.name}</Text>
+                        <TouchableOpacity
+                            style={styles.btn}
+                            onPress={() => handleLogout()}>
                             <Ionicons
                                 name='log-out-outline'
                                 size={25}

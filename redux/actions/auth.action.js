@@ -1,5 +1,5 @@
 import * as actionTypes from "../constants/auth.constant";
-import axios from 'axios'
+import axios from "axios";
 
 export const login = (username, password) => async (dispatch, getState) => {
     try {
@@ -8,7 +8,20 @@ export const login = (username, password) => async (dispatch, getState) => {
             password: password,
         });
 
-        console.log(data)
+        const decode = await axios.post("/auth/verifyToken", {
+            token: data.accessToken,
+        });
+
+        const user = {
+            username: decode.data.username,
+            name: decode.data.name,
+            email: decode.data.email,
+            phone: decode.data.phone,
+            resetLink: decode.data.resetLink,
+            _id: decode.data._id,
+            address: decode.data.address,
+            image: decode.data.image,
+        };
 
         dispatch({
             type: actionTypes.LOGIN_REQUIRED,
@@ -18,13 +31,18 @@ export const login = (username, password) => async (dispatch, getState) => {
             dispatch({
                 type: actionTypes.LOGIN_SUCCESS,
                 payload: {
-                    user: data.user,
-                    accessToken: data.accessToken
+                    accessToken: data.accessToken,
+                },
+            });
+            dispatch({
+                type: actionTypes.VERIFY_TOKEN,
+                payload: {
+                    user
                 }
             });
         }, 1500);
     } catch (error) {
-        console.log(error)
+        console.log(error);
         dispatch({
             type: actionTypes.LOGIN_FAILURE,
             payload: {
@@ -61,3 +79,9 @@ export const register =
             });
         }
     };
+
+export const logout = () => (dispatch) => {
+    dispatch({
+        type: actionTypes.LOGOUT,
+    });
+};
