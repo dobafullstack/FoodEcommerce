@@ -15,11 +15,15 @@ import Google from "../assets/google.png";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/actions/auth.action";
 
-export default function Login() {
+export default function Login({ navigation }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
     const isLoading = useSelector((state) => state.auth.isLoading);
+
+    navigation.setOptions({
+        headerTitle: "Login"
+    })
 
     const handleLogin = () => {
         dispatch(login(username, password));

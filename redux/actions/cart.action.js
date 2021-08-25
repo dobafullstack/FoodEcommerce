@@ -83,7 +83,6 @@ export const updateCart = (product, count) => async (dispatch, getState) => {
             return;
         }
         products[index].count = products[index].count + count;
-        console.log(products[index].count);
         totalPrice = totalPrice - product.product.price;
     }
 

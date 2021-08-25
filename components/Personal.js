@@ -8,15 +8,14 @@ import {
     TextInput,
     TouchableOpacity,
 } from "react-native";
-import Avatar from "../assets/avatar.jpg";
+import Avatar from "../assets/avatar.png";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { logout } from "../redux/actions/auth.action";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Profile() {
+export default function Personal({ navigation, route }) {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
-
     const handleLogout = () => {
         dispatch(logout());
     };
@@ -32,7 +31,12 @@ export default function Profile() {
                         height: "100%",
                         alignItems: "center",
                     }}>
-                    <Image source={Avatar} style={styles.avatar} />
+                    <Image
+                        source={
+                            user.image === "" ? Avatar : { uri: user.image }
+                        }
+                        style={styles.avatar}
+                    />
                     <View style={styles.nameWrapper}>
                         <TouchableOpacity style={styles.btn}>
                             <Ionicons
@@ -53,7 +57,9 @@ export default function Profile() {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.hr}></View>
-                    <TouchableOpacity style={styles.item}>
+                    <TouchableOpacity
+                        style={styles.item}
+                        onPress={() => navigation.navigate("Profile")}>
                         <Text style={styles.itemText}>Profile</Text>
                         <Ionicons
                             name='chevron-forward-outline'
@@ -61,7 +67,9 @@ export default function Profile() {
                             color='#000'
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.item}>
+                    <TouchableOpacity
+                        style={styles.item}
+                        onPress={() => navigation.navigate("WishList")}>
                         <Text style={styles.itemText}>WishList</Text>
                         <Ionicons
                             name='chevron-forward-outline'
@@ -69,7 +77,9 @@ export default function Profile() {
                             color='#000'
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.item}>
+                    <TouchableOpacity
+                        style={styles.item}
+                        onPress={() => navigation.navigate("Order History")}>
                         <Text style={styles.itemText}>Order History</Text>
                         <Ionicons
                             name='chevron-forward-outline'

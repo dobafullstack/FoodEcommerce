@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, Alert } from "react-native";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/actions/auth.action";
+import CustomInput from "../components/CustomInput";
 
 export default function Home() {
     const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
+    axios.defaults.headers['Authorization'] = `Bearer ${auth.accessToken}`;
 
     if (auth.isLogin) {
         axios
@@ -20,10 +22,12 @@ export default function Home() {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Home</Text>
         </View>
     );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {},
+});

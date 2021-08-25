@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     button: {
-        backgroundColor: "red",
+        backgroundColor: "#f4511e",
         flexGrow: 1,
-        paddingVertical: 10
+        paddingVertical: 10,
     },
     price: {
         flexGrow: 1,
@@ -72,5 +72,5 @@ const styles = StyleSheet.create({
     textCart: {
         color: "white",
         textAlign: "center",
-    }
+    },
 });

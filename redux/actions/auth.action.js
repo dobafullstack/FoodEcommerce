@@ -8,6 +8,8 @@ export const login = (username, password) => async (dispatch, getState) => {
             password: password,
         });
 
+        console.log(data)
+
         const decode = await axios.post("/auth/verifyToken", {
             token: data.accessToken,
         });
@@ -37,8 +39,8 @@ export const login = (username, password) => async (dispatch, getState) => {
             dispatch({
                 type: actionTypes.VERIFY_TOKEN,
                 payload: {
-                    user
-                }
+                    user,
+                },
             });
         }, 1500);
     } catch (error) {
@@ -85,3 +87,37 @@ export const logout = () => (dispatch) => {
         type: actionTypes.LOGOUT,
     });
 };
+
+export const updateUser =
+    (username, email, phone, address) => async (dispatch, getState) => {
+        const id = getState().auth.user._id;
+
+        try {
+            const { data } = await axios.post(`/user/update/${id}`, {
+                username,
+                email,
+                phone,
+                address,
+            });
+
+            dispatch({
+                type: actionTypes.UPDATE_USER_REQUIRED,
+            });
+
+            setTimeout(() => {
+                dispatch({ 
+                    type: actionTypes.UPDATE_USER_SUCCESS,
+                    payload: {
+                        user: data
+                    }
+                });
+            }, 1500);
+        } catch (error) {
+            dispatch({
+                type: actionTypes.UPDATE_USER_FAILURE,
+                payload: {
+                    message: error.message,
+                }
+            });
+        }
+    };

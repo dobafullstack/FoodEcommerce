@@ -58,6 +58,23 @@ export default (state = initialState, { type, payload }) => {
                 ...state,
                 user: payload.user
             }
+        case actionTypes.UPDATE_USER_REQUIRED:
+            return{
+                ...state,
+                isLoading: true
+            }
+        case actionTypes.UPDATE_USER_SUCCESS:
+            return{
+                ...state,
+                isLoading: false,
+                user: payload.user
+            }
+        case actionTypes.UPDATE_USER_FAILURE:
+            return{
+                ...state,
+                isLoading: false,
+                message: payload.message
+            }
         default:
             return state;
     }
